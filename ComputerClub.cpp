@@ -83,7 +83,8 @@ void ComputerClub::readEvents(std::vector<std::string> &inputLines)
         event.time = tokens[0];
         event.type = std::stoi(tokens[1]);
         event.body = tokens[2];
-        event.tableNumber = tokens.size() == TOKENS_IN_SITS_EVENT ? std::stoi(tokens[3]) : NOT_AT_TABLE;
+        event.tableNumber =
+            tokens.size() == TOKENS_IN_SITS_EVENT ? std::stoi(tokens[3]) : NOT_AT_TABLE;
         events.push_back(event);
     }
 }
@@ -150,7 +151,8 @@ void ComputerClub::endOfDayEvents()
     auto eventIterator = events.begin();
 
     // Skip all events before the closing time
-    while (eventIterator != events.end() && Validator::convertTimeToMinutes(eventIterator->time) <= Validator::convertTimeToMinutes(closingTime)) {
+    while (eventIterator != events.end()
+           && Validator::convertTimeToMinutes(eventIterator->time) <= Validator::convertTimeToMinutes(closingTime)) {
         ++eventIterator;
     }
 
@@ -162,8 +164,7 @@ void ComputerClub::endOfDayEvents()
     }
 }
 
-bool ComputerClub::checkAndHandleError(bool condition, Event &event,
-                                       const std::string &errorMessage)
+bool ComputerClub::checkAndHandleError(bool condition, Event &event, const std::string &errorMessage)
 {
     if (!condition) {
         Event errorEvent{event.time, OUTPUT_ERROR_EVENT, errorMessage};
@@ -223,7 +224,8 @@ void ComputerClub::inputClientArrives(Event &event)
     int openingTimeInMinutes = Validator::convertTimeToMinutes(openingTime);
     int closingTimeInMinutes = Validator::convertTimeToMinutes(closingTime);
 
-    bool isClubOpen = openingTimeInMinutes <= eventTimeInMinutes && eventTimeInMinutes <= closingTimeInMinutes;
+    bool isClubOpen =
+        openingTimeInMinutes <= eventTimeInMinutes && eventTimeInMinutes <= closingTimeInMinutes;
     if (checkAndHandleError(isClubOpen, event, "NotOpenYet"))
         return;
 
@@ -318,10 +320,7 @@ void ComputerClub::outputClientLeaves(Event &event)
     handleClientEvent(event, OUTPUT_CLIENT_LEAVES);
 }
 
-void ComputerClub::outputClientSits(Event &event)
-{
-    handleClientEvent(event, OUTPUT_CLIENT_SITS);
-}
+void ComputerClub::outputClientSits(Event &event) { handleClientEvent(event, OUTPUT_CLIENT_SITS); }
 
 void ComputerClub::outputErrorEvent(Event &event)
 {

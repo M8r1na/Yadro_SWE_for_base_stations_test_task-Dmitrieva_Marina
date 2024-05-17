@@ -8,4 +8,7 @@ int Table::countMinutesOccupied(std::string &startTime, std::string &endTime) no
     return Validator::convertTimeToMinutes(endTime) - Validator::convertTimeToMinutes(startTime);
 }
 
-int Table::countRevenue(int minutesOccupied) noexcept { return ceil(minutesOccupied / 60.0) * hourlyRate; }
+int Table::countRevenue(int minutesOccupied) noexcept
+{
+    return ceil(minutesOccupied / 60.0) * hourlyRate;
+}
