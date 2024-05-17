@@ -122,6 +122,12 @@ void ComputerClub::processEvent(std::list<Event>::iterator &eventIterator)
     }
 }
 
+void ComputerClub::processEventAndMoveNext(std::list<Event>::iterator &eventIterator) 
+{
+    processEvent(eventIterator);
+    ++eventIterator;
+}
+
 void ComputerClub::processEvents()
 {
     auto eventIterator = events.begin();
@@ -135,14 +141,12 @@ void ComputerClub::processEvents()
             break;
         }
 
-        processEvent(eventIterator);
-        ++eventIterator;
+        processEventAndMoveNext(eventIterator);
     }
 
     // Process the remaining events
     while (eventIterator != events.end()) {
-        processEvent(eventIterator);
-        ++eventIterator;
+        processEventAndMoveNext(eventIterator);
     }
 }
 
@@ -320,7 +324,10 @@ void ComputerClub::outputClientLeaves(Event &event)
     handleClientEvent(event, OUTPUT_CLIENT_LEAVES);
 }
 
-void ComputerClub::outputClientSits(Event &event) { handleClientEvent(event, OUTPUT_CLIENT_SITS); }
+void ComputerClub::outputClientSits(Event &event) 
+{ 
+    handleClientEvent(event, OUTPUT_CLIENT_SITS); 
+}
 
 void ComputerClub::outputErrorEvent(Event &event)
 {
